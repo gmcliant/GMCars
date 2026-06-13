@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="Velocity Motors — Mumbai's most exclusive luxury car dealership. Drive your dream with BMW, Audi, Mercedes-Benz and more."/>
+<meta name="keywords" content="luxury cars, BMW, Audi, Mercedes, car dealership, test drive, Mumbai"/>
+<meta name="author" content="Velocity Motors"/>
+<title>Velocity Motors — Drive Your Dream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+/* ═══════════════════════════════════════════════════
+   ROOT VARIABLES & RESET
+═══════════════════════════════════════════════════ */
+:root{
+  --gold:#C9A84C;
+  --gold-light:#E8C96B;
+  --gold-dim:rgba(201,168,76,0.15);
+  --black:#080808;
+  --dark1:#111111;
+  --dark2:#1A1A1A;
+  --dark3:#242424;
+  --dark4:#2E2E2E;
+  --gray:#888;
+  --light:#F5F5F0;
+  --white:#FFFFFF;
+  --glass:rgba(255,255,255,0.04);
+  --glass-border:rgba(255,255,255,0.08);
+  --radius:14px;
+  --radius-lg:22px;
+  --shadow:0 8px 40px rgba(0,0,0,0.5);
+  --shadow-gold:0 0 40px rgba(201,168,76,0.2);
+  --font-display:'Playfair Display',serif;
+  --font-body:'Inter',sans-serif;
+  --transition:0.35s cubic-bezier(0.4,0,0.2,1);
+  --nav-h:76px;
+}
+[data-theme="light"]{
+  --black:#F5F5F0;
+  --dark1:#EFEFEA;
+  --dark2:#E8E8E3;
+  --dark3:#DEDEDA;
+  --dark4:#D4D4D0;
+  --light:#111111;
+  --white:#080808;
+  --glass:rgba(0,0,0,0.03);
+  --glass-border:rgba(0,0,0,0.08);
+  --gray:#555;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--dark1);color:var(--light);font-family:var(--font-body);overflow-x:hidden;transition:background var(--transition),color var(--transition);}
+body.no-scroll{overflow:hidden;}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+input,select,textarea,button{font-family:inherit;}
+button{cursor:pointer;border:none;background:none;}
+
+/* ═══════════════════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════════════════ */
+.container{max-width:1280px;margin:0 auto;padding:0 24px;}
+.gold-text{color:var(--gold);}
+.section{padding:100px 0;}
+.section-dark{background:var(--black);}
+.section-header{text-align:center;max-width:680px;margin:0 auto 64px;}
+.section-eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.section-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:20px;}
+.section-desc{color:var(--gray);font-size:1.05rem;line-height:1.8;}
+.section-footer{text-align:center;margin-top:56px;}
+.mt-1{margin-top:12px;}
+.mt-2{margin-top:24px;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border-radius:50px;font-weight:600;font-size:.95rem;letter-spacing:.03em;transition:all var(--transition);cursor:pointer;border:none;}
+.btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#0a0a0a;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-gold);}
+.btn-ghost{background:transparent;color:var(--light);border:1.5px solid var(--glass-border);}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.btn-outline{background:transparent;color:var(--gold);border:1.5px solid var(--gold);padding:12px 28px;}
+.btn-outline:hover{background:var(--gold-dim);}
+.btn-sm{padding:10px 22px;font-size:.875rem;}
+.btn-lg{padding:16px 40px;font-size:1rem;}
+.btn-full{width:100%;justify-content:center;}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);}
+.reveal.visible{opacity:1;transform:none;}
+.fade-up{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease;}
+.fade-up.visible{opacity:1;transform:none;}
+
+/* ═══════════════════════════════════════════════════
+   LOADING SCREEN
+═══════════════════════════════════════════════════ */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--black);display:flex;align-items:center;justify-content:center;transition:opacity .6s ease,visibility .6s ease;}
+#loader.hidden{opacity:0;visibility:hidden;}
+.loader-inner{text-align:center;}
+.loader-logo{display:flex;align-items:baseline;gap:2px;justify-content:center;margin-bottom:32px;}
+.loader-v{font-family:var(--font-display);font-size:4rem;font-weight:900;color:var(--gold);line-height:1;}
+.loader-brand{font-family:var(--font-body);font-size:1.6rem;font-weight:300;letter-spacing:.3em;color:var(--light);}
+.loader-bar-wrap{width:220px;height:2px;background:var(--dark3);border-radius:2px;overflow:hidden;margin:0 auto 16px;}
+.loader-bar{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;animation:loaderFill 1.8s ease forwards;}
+@keyframes loaderFill{to{width:100%;}}
+.loader-tagline{font-size:.8rem;letter-spacing:.15em;color:var(--gray);text-transform:uppercase;}
+
+/* ═══════════════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════════════ */
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background var(--transition),box-shadow var(--transition),backdrop-filter var(--transition);}
+#navbar.scrolled{background:rgba(8,8,8,.85);backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--glass-border);}
+.nav-container{max-width:1280px;margin:0 auto;padding:0 24px;height:var(--nav-h);display:flex;align-items:center;gap:40px;}
+.nav-logo{display:flex;align-items:baseline;gap:6px;}
+.logo-mark{font-family:var(--font-display);font-size:1.8rem;font-weight:900;color:var(--gold);line-height:1;}
+.logo-text{font-size:.8rem;font-weight:600;letter-spacing:.15em;color:var(--light);}
+.logo-text em{color:var(--gold);font-style:normal;}
+.nav-links{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.nav-links a{font-size:.875rem;font-weight:500;letter-spacing:.04em;padding:8px 14px;border-radius:50px;color:var(--gray);transition:color var(--transition),background var(--transition);}
+.nav-links a:hover{color:var(--gold);background:var(--gold-dim);}
+.nav-actions{display:flex;align-items:center;gap:8px;}
+.nav-icon-btn{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--light);transition:all var(--transition);}
+.nav-icon-btn:hover{background:var(--glass);color:var(--gold);}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:8px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--light);border-radius:2px;transition:all var(--transition);}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* Search bar */
+.search-bar{display:none;padding:12px 24px;background:rgba(8,8,8,.95);backdrop-filter:blur(20px);border-top:1px solid var(--glass-border);}
+.search-bar.open{display:block;}
+.search-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;gap:12px;background:var(--dark2);border:1px solid var(--glass-border);border-radius:50px;padding:12px 20px;}
+.search-inner i{color:var(--gray);}
+.search-inner input{flex:1;background:none;border:none;outline:none;color:var(--light);font-size:1rem;}
+.search-inner input::placeholder{color:var(--gray);}
+#searchClose{color:var(--gray);transition:color var(--transition);}
+#searchClose:hover{color:var(--gold);}
+
+/* ═══════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════ */
+#hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1600&q=80') center/cover no-repeat;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(120deg,rgba(8,8,8,.92) 45%,rgba(8,8,8,.5) 100%);}
+.bokeh{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.b1{width:500px;height:500px;background:rgba(201,168,76,.07);top:-10%;right:10%;animation:float1 8s ease-in-out infinite;}
+.b2{width:300px;height:300px;background:rgba(201,168,76,.05);bottom:20%;right:30%;animation:float2 10s ease-in-out infinite;}
+.b3{width:200px;height:200px;background:rgba(201,168,76,.04);top:50%;right:5%;animation:float1 6s ease-in-out infinite reverse;}
+@keyframes float1{0%,100%{transform:translateY(0);}50%{transform:translateY(-30px);}}
+@keyframes float2{0%,100%{transform:translateY(0);}50%{transform:translateY(20px);}}
+.hero-slash{position:absolute;top:0;right:25%;width:3px;height:100%;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:.3;transform:skewX(-15deg);}
+.hero-content{position:relative;z-index:2;padding:var(--nav-h) 24px 80px;max-width:1280px;margin:0 auto;width:100%;}
+.hero-eyebrow{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.hero-headline{font-family:var(--font-display);font-size:clamp(3.5rem,8vw,7rem);font-weight:900;line-height:1.0;margin-bottom:24px;color:var(--white);}
+.hero-sub{max-width:560px;font-size:1.1rem;line-height:1.8;color:rgba(245,245,240,.7);margin-bottom:40px;}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:64px;}
+.hero-stats{display:flex;align-items:center;gap:32px;flex-wrap:wrap;}
+.stat{text-align:left;}
+.stat strong{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--gold);}
+.stat span{font-size:1.4rem;color:var(--gold);}
+.stat p{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-top:4px;}
+.stat-divider{width:1px;height:48px;background:var(--glass-border);}
+.scroll-cue{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.5;transition:opacity var(--transition);}
+.scroll-cue:hover{opacity:1;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--gold));}
+.scroll-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:scrollPulse 1.5s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+/* ═══════════════════════════════════════════════════
+   CARS SECTION
+═══════════════════════════════════════════════════ */
+.car-filters{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:48px;}
+.filter-btn{padding:10px 24px;border-radius:50px;font-size:.875rem;font-weight:500;color:var(--gray);border:1.5px solid var(--glass-border);background:transparent;transition:all var(--transition);}
+.filter-btn.active,.filter-btn:hover{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);}
+.cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:28px;}
+.car-card{background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius-lg);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition);}
+.car-card:hover{transform:translateY(-8px);box-shadow:var(--shadow),var(--shadow-gold);border-color:rgba(201,168,76,.3);}
+.car-card.hidden{display:none;}
+.car-img-wrap{position:relative;height:220px;overflow:hidden;}
+.car-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.car-card:hover .car-img-wrap img{transform:scale(1.06);}
+.car-badge{position:absolute;top:16px;left:16px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#0a0a0a;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:50px;}
+.car-badge-hot{background:linear-gradient(135deg,#e05a5a,#ff8a8a)!important;color:#fff!important;}
+.car-wishlist{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;color:var(--light);transition:all var(--transition);}
+.car-wishlist:hover,.car-wishlist.active{background:rgba(224,90,90,.2);color:#ff6b6b;}
+.car-info{padding:24px;}
+.car-brand{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.car-name{font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:10px;}
+.car-price{font-size:1.5rem;font-weight:700;color:var(--gold);margin-bottom:16px;}
+.car-specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+.car-specs span{font-size:.8rem;color:var(--gray);display:flex;align-items:center;gap:6px;}
+.car-specs i{color:var(--gold);font-size:.75rem;}
+.car-actions{display:flex;gap:10px;}
+
+/* ═══════════════════════════════════════════════════
+   WHY CHOOSE US
+═══════════════════════════════════════════════════ */
+.why-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start;}
+.why-body{color:var(--gray);line-height:1.9;margin:20px 0 32px;}
+.why-right{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.why-card{background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius);padding:24px;display:flex;gap:16px;transition:border-color var(--transition),transform var(--transition);}
+.why-card:hover{border-color:rgba(201,168,76,.3);transform:translateY(-4px);}
+.why-icon{width:48px;height:48px;border-radius:12px;background:var(--gold-dim);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.2rem;flex-shrink:0;}
+.why-card h3{font-size:1rem;font-weight:600;margin-bottom:8px;}
+.why-card p{font-size:.875rem;color:var(--gray);line-height:1.6;}
+
+/* ═══════════════════════════════════════════════════
+   COMPARISON TOOL
+═══════════════════════════════════════════════════ */
+.compare-tool{background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:40px;max-width:900px;margin:0 auto;}
+.compare-selects{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;margin-bottom:28px;}
+.compare-select-wrap label{display:block;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.compare-select-wrap select{width:100%;padding:14px 18px;background:var(--dark3);border:1px solid var(--glass-border);border-radius:var(--radius);color:var(--light);font-size:.95rem;outline:none;transition:border-color var(--transition);}
+.compare-select-wrap select:focus{border-color:var(--gold);}
+.compare-vs{font-family:var(--font-display);font-size:1.8rem;font-weight:900;color:var(--gold);text-align:center;}
+#compareBtn{display:block;margin:0 auto;}
+.compare-result{margin-top:36px;}
+.compare-table{width:100%;border-collapse:collapse;margin-top:20px;}
+.compare-table th{padding:14px 18px;text-align:left;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--glass-border);}
+.compare-table td{padding:14px 18px;font-size:.9rem;color:var(--light);border-bottom:1px solid var(--glass-border);}
+.compare-table td:first-child{color:var(--gray);}
+.compare-table tr:hover td{background:var(--gold-dim);}
+.compare-car-name{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--gold)!important;}
+.compare-better{color:#4ade80!important;font-weight:600;}
+
+/* ═══════════════════════════════════════════════════
+   BOOKING
+═══════════════════════════════════════════════════ */
+.section-booking{background:linear-gradient(135deg,var(--dark1) 0%,rgba(201,168,76,.05) 100%);}
+.booking-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;}
+.booking-left p{color:var(--gray);line-height:1.9;margin:16px 0 28px;}
+.booking-perks{display:flex;flex-direction:column;gap:12px;}
+.booking-perks li{display:flex;align-items:center;gap:12px;font-size:.9rem;color:var(--gray);}
+.booking-perks i{color:var(--gold);}
+.booking-form-wrap{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:40px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.form-group label{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
+.form-group input,.form-group select,.form-group textarea{background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius);padding:14px 18px;color:var(--light);font-size:.95rem;outline:none;transition:border-color var(--transition);}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:var(--gray);}
+.form-group select option{background:var(--dark2);color:var(--light);}
+.form-group textarea{resize:vertical;min-height:120px;}
+.form-err{font-size:.78rem;color:#ff6b6b;min-height:18px;}
+.form-success{text-align:center;padding:40px 20px;}
+.form-success i{font-size:3rem;color:var(--gold);margin-bottom:16px;}
+.form-success h3{font-family:var(--font-display);font-size:1.6rem;margin-bottom:8px;}
+.form-success p{color:var(--gray);}
+
+/* ═══════════════════════════════════════════════════
+   EMI CALCULATOR
+═══════════════════════════════════════════════════ */
+.emi-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start;}
+.emi-field{margin-bottom:28px;}
+.emi-field label{display:block;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.emi-input-wrap{display:flex;align-items:center;gap:0;background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;transition:border-color var(--transition);}
+.emi-input-wrap:focus-within{border-color:var(--gold);}
+.emi-input-wrap span{padding:14px 16px;background:var(--dark3);color:var(--gold);font-weight:600;font-size:.95rem;border-right:1px solid var(--glass-border);}
+.emi-input-wrap input{flex:1;background:none;border:none;outline:none;color:var(--light);padding:14px 16px;font-size:.95rem;}
+.emi-slider{-webkit-appearance:none;width:100%;height:4px;background:var(--dark3);border-radius:4px;outline:none;margin-bottom:6px;}
+.emi-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid var(--dark1);}
+.emi-range-labels{display:flex;justify-content:space-between;font-size:.75rem;color:var(--gray);}
+.emi-result{background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:36px;text-align:center;position:sticky;top:100px;}
+.emi-donut-wrap{position:relative;width:240px;height:240px;margin:0 auto 28px;}
+#emiChart{border-radius:50%;}
+.emi-donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;}
+.emi-donut-center p{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;}
+.emi-donut-center strong{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--gold);}
+.emi-breakdown{width:100%;text-align:left;margin-bottom:24px;}
+.emi-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--glass-border);font-size:.9rem;}
+.emi-row span{display:flex;align-items:center;gap:8px;color:var(--gray);}
+.emi-row strong{font-weight:600;}
+.emi-row-total{border-bottom:none;padding-top:16px;}
+.emi-row-total span{color:var(--light);font-weight:600;}
+.emi-row-total strong{color:var(--gold);font-size:1.1rem;}
+
+/* ═══════════════════════════════════════════════════
+   REVIEWS
+═══════════════════════════════════════════════════ */
+.reviews-carousel{overflow:hidden;margin:0 -24px;}
+.reviews-track{display:flex;gap:24px;padding:0 24px 16px;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+.review-card{background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:36px;min-width:360px;flex-shrink:0;transition:border-color var(--transition);}
+.review-card:hover{border-color:rgba(201,168,76,.3);}
+.review-stars{font-size:1.2rem;color:var(--gold);margin-bottom:20px;letter-spacing:2px;}
+.review-card blockquote{font-size:1rem;line-height:1.8;color:rgba(245,245,240,.8);font-style:italic;margin-bottom:24px;}
+.reviewer{display:flex;align-items:center;gap:14px;}
+.reviewer-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;color:#0a0a0a;flex-shrink:0;}
+.reviewer strong{display:block;font-size:.95rem;font-weight:600;}
+.reviewer p{font-size:.8rem;color:var(--gray);}
+.carousel-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:32px;}
+.carousel-controls button{width:44px;height:44px;border-radius:50%;background:var(--dark2);border:1px solid var(--glass-border);color:var(--light);display:flex;align-items:center;justify-content:center;transition:all var(--transition);}
+.carousel-controls button:hover{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);}
+.carousel-dots{display:flex;gap:8px;}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--dark3);border:1px solid var(--glass-border);cursor:pointer;transition:all var(--transition);}
+.carousel-dot.active{background:var(--gold);border-color:var(--gold);width:24px;border-radius:4px;}
+
+/* ═══════════════════════════════════════════════════
+   OFFERS
+═══════════════════════════════════════════════════ */
+.offers-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:24px;}
+.offer-card{background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:32px;transition:transform var(--transition),border-color var(--transition);}
+.offer-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,.3);}
+.offer-card-main{background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.03));border-color:rgba(201,168,76,.3);display:flex;flex-direction:column;gap:16px;}
+.offer-tag{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(201,168,76,.3);padding:6px 14px;border-radius:50px;align-self:flex-start;}
+.offer-card-main h3{font-family:var(--font-display);font-size:1.8rem;font-weight:700;line-height:1.2;}
+.offer-card-main p{color:var(--gray);line-height:1.7;flex:1;}
+.offer-icon{width:52px;height:52px;border-radius:14px;background:var(--gold-dim);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.3rem;margin-bottom:16px;}
+.offer-card:not(.offer-card-main) h3{font-size:1.15rem;font-weight:700;margin-bottom:12px;}
+.offer-card:not(.offer-card-main) p{font-size:.875rem;color:var(--gray);line-height:1.7;margin-bottom:20px;}
+.offer-timer{font-size:.8rem;color:var(--gold);letter-spacing:.1em;}
+
+/* ═══════════════════════════════════════════════════
+   GALLERY
+═══════════════════════════════════════════════════ */
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:16px;}
+.gallery-large{grid-column:span 2;grid-row:span 2;}
+.gallery-tall{grid-row:span 2;}
+.gallery-item{position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.gallery-item:hover img{transform:scale(1.08);}
+.gallery-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:all var(--transition);}
+.gallery-item:hover .gallery-overlay{background:rgba(201,168,76,.15);}
+.gallery-overlay i{color:var(--gold);font-size:1.8rem;opacity:0;transform:scale(.6);transition:all var(--transition);}
+.gallery-item:hover .gallery-overlay i{opacity:1;transform:scale(1);}
+/* Lightbox */
+.lightbox{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.lightbox-close{position:fixed;top:24px;right:24px;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:all var(--transition);}
+.lightbox-close:hover{background:var(--gold-dim);color:var(--gold);}
+.lightbox-nav{position:fixed;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all var(--transition);}
+.lightbox-prev{left:24px;}
+.lightbox-next{right:24px;}
+.lightbox-nav:hover{background:var(--gold-dim);color:var(--gold);}
+.lightbox-content{text-align:center;max-width:90vw;}
+#lightboxImg{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:var(--radius);}
+#lightboxCaption{color:var(--gray);font-size:.9rem;margin-top:16px;}
+
+/* ═══════════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════════ */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;}
+.contact-info{display:flex;flex-direction:column;gap:24px;}
+.contact-item{display:flex;gap:16px;align-items:flex-start;}
+.contact-item i{width:44px;height:44px;border-radius:12px;background:var(--gold-dim);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1rem;flex-shrink:0;}
+.contact-item strong{display:block;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.contact-item p{font-size:.9rem;color:var(--gray);line-height:1.7;}
+.contact-item a{color:var(--gray);transition:color var(--transition);}
+.contact-item a:hover{color:var(--gold);}
+.map-placeholder{border-radius:var(--radius);overflow:hidden;border:1px solid var(--glass-border);}
+.contact-form-wrap{background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:var(--radius-lg);padding:40px;}
+/* Social contact icons */
+.contact-social-links{display:flex;flex-direction:column;gap:14px;margin-top:8px;}
+.contact-social-link{display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius);transition:all var(--transition);text-decoration:none;color:var(--light);}
+.contact-social-link:hover{border-color:rgba(201,168,76,.4);background:var(--gold-dim);color:var(--gold);}
+.contact-social-link .csl-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.contact-social-link .csl-text strong{display:block;font-size:.85rem;font-weight:600;}
+.contact-social-link .csl-text span{font-size:.78rem;color:var(--gray);}
+.csl-email .csl-icon{background:rgba(234,67,53,.15);color:#EA4335;}
+.csl-whatsapp .csl-icon{background:rgba(37,211,102,.15);color:#25D366;}
+.csl-instagram .csl-icon{background:rgba(225,48,108,.15);color:#E1306C;}
+.csl-youtube .csl-icon{background:rgba(255,0,0,.15);color:#FF0000;}
+.csl-facebook .csl-icon{background:rgba(24,119,242,.15);color:#1877F2;}
+.csl-portfolio .csl-icon{background:rgba(201,168,76,.15);color:var(--gold);}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════ */
+#footer{background:var(--black);border-top:1px solid var(--glass-border);padding:80px 0 0;}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.4fr;gap:48px;margin-bottom:64px;}
+.footer-brand p{font-size:.9rem;color:var(--gray);line-height:1.8;margin:16px 0 24px;}
+.social-links{display:flex;gap:10px;}
+.social-links a{width:40px;height:40px;border-radius:50%;background:var(--dark2);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;color:var(--gray);transition:all var(--transition);}
+.social-links a:hover{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);}
+.footer-col h4{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.footer-col ul{display:flex;flex-direction:column;gap:10px;}
+.footer-col ul a{font-size:.9rem;color:var(--gray);transition:color var(--transition);}
+.footer-col ul a:hover{color:var(--gold);}
+.footer-newsletter p{font-size:.875rem;color:var(--gray);line-height:1.7;margin-bottom:16px;}
+.newsletter-form{display:flex;gap:0;background:var(--dark2);border:1px solid var(--glass-border);border-radius:50px;overflow:hidden;transition:border-color var(--transition);}
+.newsletter-form:focus-within{border-color:var(--gold);}
+.newsletter-form input{flex:1;background:none;border:none;outline:none;padding:12px 20px;color:var(--light);font-size:.9rem;}
+.newsletter-form input::placeholder{color:var(--gray);}
+.newsletter-form button{width:44px;height:44px;background:var(--gold);color:#0a0a0a;border-radius:50%;margin:4px;display:flex;align-items:center;justify-content:center;transition:background var(--transition);}
+.newsletter-form button:hover{background:var(--gold-light);}
+.newsletter-note{font-size:.75rem;color:var(--gray);margin-top:8px;}
+.footer-bottom{border-top:1px solid var(--glass-border);padding:24px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-bottom p{font-size:.85rem;color:var(--gray);}
+.footer-legal{display:flex;gap:24px;}
+.footer-legal a{font-size:.85rem;color:var(--gray);transition:color var(--transition);}
+.footer-legal a:hover{color:var(--gold);}
+
+/* ═══════════════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn .3s ease;}
+.modal{background:var(--dark2);border:1px solid var(--glass-border);border-radius:var(--radius-lg);max-width:700px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:slideUp .4s cubic-bezier(.4,0,.2,1);}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0;}to{transform:none;opacity:1;}}
+.modal-close{position:sticky;top:16px;float:right;margin:16px;width:36px;height:36px;border-radius:50%;background:var(--dark3);color:var(--light);display:flex;align-items:center;justify-content:center;transition:all var(--transition);z-index:1;}
+.modal-close:hover{background:var(--gold-dim);color:var(--gold);}
+.modal-content{padding:24px 36px 36px;}
+.modal-img{width:100%;height:260px;object-fit:cover;border-radius:var(--radius);margin-bottom:24px;}
+.modal-brand{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.modal-name{font-family:var(--font-display);font-size:2rem;font-weight:700;margin-bottom:6px;}
+.modal-price{font-size:1.6rem;font-weight:700;color:var(--gold);margin-bottom:20px;}
+.modal-desc{font-size:.95rem;color:var(--gray);line-height:1.8;margin-bottom:24px;}
+.modal-specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;}
+.modal-spec{background:var(--dark3);border-radius:10px;padding:16px;}
+.modal-spec p{font-size:.75rem;color:var(--gray);margin-bottom:4px;}
+.modal-spec strong{font-size:.95rem;font-weight:600;}
+.modal-actions{display:flex;gap:12px;}
+
+/* ═══════════════════════════════════════════════════
+   BACK TO TOP
+═══════════════════════════════════════════════════ */
+.back-to-top{position:fixed;bottom:32px;right:32px;z-index:900;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#0a0a0a;display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:var(--shadow);transition:transform var(--transition),opacity var(--transition);}
+.back-to-top:hover{transform:translateY(-4px);}
+
+/* ═══════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════ */
+@media(max-width:1200px){
+  .offers-grid{grid-template-columns:1fr 1fr;}.offer-card-main{grid-column:span 2;}
+  .why-grid{gap:48px;}
+  .footer-top{grid-template-columns:1fr 1fr;gap:36px;}
+}
+@media(max-width:1024px){
+  .why-grid{grid-template-columns:1fr;}.why-right{grid-template-columns:1fr 1fr;}
+  .booking-grid,.emi-grid,.contact-grid{grid-template-columns:1fr;}
+  .compare-selects{grid-template-columns:1fr;}.compare-vs{text-align:left;}
+  .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  .gallery-large{grid-column:span 2;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(8,8,8,.97);backdrop-filter:blur(20px);flex-direction:column;align-items:stretch;padding:24px;gap:4px;border-bottom:1px solid var(--glass-border);}
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:14px 18px;border-radius:var(--radius);}
+  .hamburger{display:flex;}
+  .hero-headline{font-size:clamp(2.8rem,10vw,4.5rem);}
+  .hero-stats{gap:20px;}
+  .stat-divider{display:none;}
+  .cars-grid{grid-template-columns:1fr;}
+  .why-right{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px;}
+  .gallery-tall{grid-row:span 1;}
+  .offers-grid{grid-template-columns:1fr;}
+  .offer-card-main{grid-column:span 1;}
+  .footer-top{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+  .section{padding:64px 0;}
+  .modal-specs-grid{grid-template-columns:1fr;}
+  .modal-actions{flex-direction:column;}
+}
+@media(max-width:480px){
+  .hero-ctas{flex-direction:column;}
+  .btn-lg{width:100%;justify-content:center;}
+  .review-card{min-width:290px;}
+  .gallery-grid{grid-template-columns:1fr;}
+  .gallery-large{grid-column:span 1;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ LOADER ═══════════════ -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">
+      <span class="loader-v">V</span>
+      <span class="loader-brand">ELOCITY</span>
+    </div>
+    <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+    <p class="loader-tagline">Preparing your experience</p>
+  </div>
+</div>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="#hero" class="nav-logo" aria-label="Velocity Motors">
+      <span class="logo-mark">V</span>
+      <span class="logo-text">ELOCITY <em>MOTORS</em></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#cars">Cars</a></li>
+      <li><a href="#why-us">About</a></li>
+      <li><a href="#compare">Compare</a></li>
+      <li><a href="#emi">EMI</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon-btn" id="searchToggle" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="nav-icon-btn" id="themeToggle" aria-label="Toggle theme"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <div class="search-inner">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Search BMW, Audi, SUV, Sedan…" autocomplete="off"/>
+      <button id="searchClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="bokeh b1"></div><div class="bokeh b2"></div><div class="bokeh b3"></div>
+  </div>
+  <div class="hero-slash" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow fade-up">Mumbai's Most Exclusive Showroom</p>
+    <h1 class="hero-headline fade-up">Drive Your<br/><span class="gold-text">Dream</span></h1>
+    <p class="hero-sub fade-up">Hand-picked supercars and luxury SUVs. Every vehicle — certified, immaculate, and ready to redefine how you move through the world.</p>
+    <div class="hero-ctas fade-up">
+      <a href="#cars" class="btn btn-primary"><span>Explore Cars</span><i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#booking" class="btn btn-ghost"><span>Book Test Drive</span></a>
+    </div>
+    <div class="hero-stats fade-up">
+      <div class="stat"><strong class="counter" data-target="350">0</strong><span>+</span><p>Cars Delivered</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong class="counter" data-target="18">0</strong><span>+</span><p>Luxury Brands</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong class="counter" data-target="12">0</strong><span></span><p>Years of Excellence</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><strong class="counter" data-target="98">0</strong><span>%</span><p>Client Satisfaction</p></div>
+    </div>
+  </div>
+  <a href="#cars" class="scroll-cue" aria-label="Scroll down"><span class="scroll-line"></span><span class="scroll-dot"></span></a>
+</section>
+
+<!-- ═══════════════ CARS ═══════════════ -->
+<section id="cars" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Our Collection</p>
+      <h2 class="section-title">Featured <span class="gold-text">Vehicles</span></h2>
+      <p class="section-desc">Every car in our showroom carries a pedigree. Explore the finest machines engineered for those who refuse to compromise.</p>
+    </div>
+    <div class="car-filters reveal" role="tablist">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="suv">SUV</button>
+      <button class="filter-btn" data-filter="sedan">Sedan</button>
+      <button class="filter-btn" data-filter="premium">Premium</button>
+    </div>
+    <div class="cars-grid" id="carsGrid">
+
+      <article class="car-card reveal" data-category="suv premium" data-name="BMW X5">
+        <div class="car-img-wrap">
+          <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" alt="BMW X5" loading="lazy"/>
+          <div class="car-badge">New Arrival</div>
+          <button class="car-wishlist" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="car-info">
+          <div class="car-brand">BMW</div>
+          <h3 class="car-name">X5 xDrive40i</h3>
+          <div class="car-price">₹92,00,000</div>
+          <div class="car-specs">
+            <span><i class="fa-solid fa-gauge-high"></i> 340 BHP</span>
+            <span><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+            <span><i class="fa-solid fa-road"></i> 11.5 km/l</span>
+            <span><i class="fa-solid fa-bolt"></i> 3.0L Twin-Turbo</span>
+          </div>
+          <div class="car-actions">
+            <button class="btn btn-sm btn-primary" onclick="openModal('bmw-x5')">Learn More</button>
+            <button class="btn btn-sm btn-outline" onclick="addToCompare('BMW X5','₹92L','340 BHP','Petrol','11.5 km/l','3.0L Twin-Turbo I6')">Compare</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="car-card reveal" data-category="sedan premium" data-name="BMW M340i">
+        <div class="car-img-wrap">
+          <img src="https://images.unsplash.com/photo-1617531653332-bd46c16f4d68?w=800&q=80" alt="BMW M340i" loading="lazy"/>
+          <div class="car-badge car-badge-hot">Hot Pick</div>
+          <button class="car-wishlist" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="car-info">
+          <div class="car-brand">BMW</div>
+          <h3 class="car-name">M340i xDrive</h3>
+          <div class="car-price">₹68,90,000</div>
+          <div class="car-specs">
+            <span><i class="fa-solid fa-gauge-high"></i> 374 BHP</span>
+            <span><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+            <span><i class="fa-solid fa-road"></i> 10.2 km/l</span>
+            <span><i class="fa-solid fa-bolt"></i> 3.0L B58 M-Tuned</span>
+          </div>
+          <div class="car-actions">
+            <button class="btn btn-sm btn-primary" onclick="openModal('bmw-m340i')">Learn More</button>
+            <button class="btn btn-sm btn-outline" onclick="addToCompare('BMW M340i','₹68.9L','374 BHP','Petrol','10.2 km/l','3.0L B58 M-Tuned')">Compare</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="car-card reveal" data-category="suv premium" data-name="Audi Q7">
+        <div class="car-img-wrap">
+          <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80" alt="Audi Q7" loading="lazy"/>
+          <div class="car-badge">Limited Stock</div>
+          <button class="car-wishlist" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="car-info">
+          <div class="car-brand">Audi</div>
+          <h3 class="car-name">Q7 45 TFSI</h3>
+          <div class="car-price">₹88,74,000</div>
+          <div class="car-specs">
+            <span><i class="fa-solid fa-gauge-high"></i> 249 BHP</span>
+            <span><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+            <span><i class="fa-solid fa-road"></i> 12.1 km/l</span>
+            <span><i class="fa-solid fa-bolt"></i> 2.0L TFSI Turbo</span>
+          </div>
+          <div class="car-actions">
+            <button class="btn btn-sm btn-primary" onclick="openModal('audi-q7')">Learn More</button>
+            <button class="btn btn-sm btn-outline" onclick="addToCompare('Audi Q7','₹88.7L','249 BHP','Petrol','12.1 km/l','2.0L TFSI Turbo')">Compare</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="car-card reveal" data-category="suv premium" data-name="Mercedes-Benz GLC">
+        <div class="car-img-wrap">
+          <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80" alt="Mercedes GLC" loading="lazy"/>
+          <div class="car-badge car-badge-hot">Best Seller</div>
+          <button class="car-wishlist" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="car-info">
+          <div class="car-brand">Mercedes-Benz</div>
+          <h3 class="car-name">GLC 300 4MATIC</h3>
+          <div class="car-price">₹74,50,000</div>
+          <div class="car-specs">
+            <span><i class="fa-solid fa-gauge-high"></i> 258 BHP</span>
+            <span><i class="fa-solid fa-gas-pump"></i> Petrol</span>
+            <span><i class="fa-solid fa-road"></i> 13.2 km/l</span>
+            <span><i class="fa-solid fa-bolt"></i> 2.0L M254 Turbo</span>
+          </div>
+          <div class="car-actions">
+            <button class="btn btn-sm btn-primary" onclick="openModal('mercedes-glc')">Learn More</button>
+            <button class="btn btn-sm btn-outline" onclick="addToCompare('Mercedes GLC','₹74.5L','258 BHP','Petrol','13.2 km/l','2.0L M254 Turbo')">Compare</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="car-card reveal" data-category="suv" data-name="Toyota Fortuner">
+        <div class="car-img-wrap">
+          <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80" alt="Toyota Fortuner" loading="lazy"/>
+          <button class="car-wishlist" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="car-info">
+          <div class="car-brand">Toyota</div>
+          <h3 class="car-name">Fortuner Legender</h3>
+          <div class="car-price">₹43,43,000</div>
+          <div class="car-specs">
+            <span><i class="fa-solid fa-gauge-high"></i> 201 BHP</span>
+            <span><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+            <span><i class="fa-solid fa-road"></i> 14.2 km/l</span>
+            <span><i class="fa-solid fa-bolt"></i> 2.8L 1GD-FTV</span>
+          </div>
+          <div class="car-actions">
+            <button class="btn btn-sm btn-primary" onclick="openModal('fortuner')">Learn More</button>
+            <button class="btn btn-sm btn-outline" onclick="addToCompare('Toyota Fortuner','₹43.4L','201 BHP','Diesel','14.2 km/l','2.8L 1GD-FTV')">Compare</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="car-card reveal" data-category="suv" data-name="Mahindra XUV700">
+        <div class="car-img-wrap">
+          <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&q=80" alt="Mahindra XUV700" loading="lazy"/>
+          <div class="car-badge">Value Pick</div>
+          <button class="car-wishlist" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></button>
+        </div>
+        <div class="car-info">
+          <div class="car-brand">Mahindra</div>
+          <h3 class="car-name">XUV700 AX7 L</h3>
+          <div class="car-price">₹25,99,000</div>
+          <div class="car-specs">
+            <span><i class="fa-solid fa-gauge-high"></i> 185 BHP</span>
+            <span><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+            <span><i class="fa-solid fa-road"></i> 16.1 km/l</span>
+            <span><i class="fa-solid fa-bolt"></i> 2.2L mStallion</span>
+          </div>
+          <div class="car-actions">
+            <button class="btn btn-sm btn-primary" onclick="openModal('xuv700')">Learn More</button>
+            <button class="btn btn-sm btn-outline" onclick="addToCompare('Mahindra XUV700','₹26L','185 BHP','Diesel','16.1 km/l','2.2L mStallion')">Compare</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="section-footer reveal">
+      <a href="#contact" class="btn btn-ghost btn-lg">View Full Inventory <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WHY US ═══════════════ -->
+<section id="why-us" class="section section-dark">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-left reveal">
+        <p class="section-eyebrow">Our Promise</p>
+        <h2 class="section-title">Why Discerning<br/>Buyers Choose<br/><span class="gold-text">Velocity</span></h2>
+        <p class="why-body">For over a decade, we have been the benchmark for luxury automotive retail in India. Our philosophy is simple: every client deserves a white-glove experience from the moment they walk through our doors.</p>
+        <a href="#booking" class="btn btn-primary mt-2">Book a Private Viewing</a>
+      </div>
+      <div class="why-right">
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div><h3>Certified Vehicles</h3><p>Every car undergoes a rigorous 127-point mechanical and cosmetic inspection before it enters our showroom floor.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fa-solid fa-tag"></i></div>
+          <div><h3>Transparent Pricing</h3><p>No hidden charges. No last-minute add-ons. Our ex-showroom pricing is published, fixed, and fair.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+          <div><h3>Tailored Finance</h3><p>Access preferred rates from 14+ banking partners with same-day approvals and up to 90% on-road funding.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <div><h3>Lifetime Service Support</h3><p>Dedicated service advisors, OEM-grade parts, and a courtesy vehicle — every time your car is with us.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fa-solid fa-rotate"></i></div>
+          <div><h3>Exchange Programme</h3><p>Get a premium valuation on your current vehicle with a seamless upgrade path to your next dream car.</p></div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fa-solid fa-star"></i></div>
+          <div><h3>Concierge Delivery</h3><p>White-glove home delivery, full orientation, and a celebration kit — because every handover is a milestone.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ COMPARE ═══════════════ -->
+<section id="compare" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Side by Side</p>
+      <h2 class="section-title">Car <span class="gold-text">Comparison</span></h2>
+      <p class="section-desc">Select any two cars from the dropdown or click "Compare" on any car card to build your comparison instantly.</p>
+    </div>
+    <div class="compare-tool reveal">
+      <div class="compare-selects">
+        <div class="compare-select-wrap">
+          <label for="car1Select">Car 1</label>
+          <select id="car1Select">
+            <option value="">— Select a car —</option>
+            <option value="bmw-x5">BMW X5 xDrive40i</option>
+            <option value="bmw-m340i">BMW M340i xDrive</option>
+            <option value="audi-q7">Audi Q7 45 TFSI</option>
+            <option value="mercedes-glc">Mercedes-Benz GLC 300</option>
+            <option value="fortuner">Toyota Fortuner Legender</option>
+            <option value="xuv700">Mahindra XUV700 AX7 L</option>
+          </select>
+        </div>
+        <div class="compare-vs">VS</div>
+        <div class="compare-select-wrap">
+          <label for="car2Select">Car 2</label>
+          <select id="car2Select">
+            <option value="">— Select a car —</option>
+            <option value="bmw-x5">BMW X5 xDrive40i</option>
+            <option value="bmw-m340i">BMW M340i xDrive</option>
+            <option value="audi-q7">Audi Q7 45 TFSI</option>
+            <option value="mercedes-glc">Mercedes-Benz GLC 300</option>
+            <option value="fortuner">Toyota Fortuner Legender</option>
+            <option value="xuv700">Mahindra XUV700 AX7 L</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="compareBtn"><i class="fa-solid fa-code-compare"></i> Compare Now</button>
+      <div class="compare-result" id="compareResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BOOKING ═══════════════ -->
+<section id="booking" class="section section-booking">
+  <div class="container">
+    <div class="booking-grid">
+      <div class="booking-left reveal">
+        <p class="section-eyebrow">Experience First</p>
+        <h2 class="section-title">Book Your<br/><span class="gold-text">Test Drive</span></h2>
+        <p>Feel the difference before you decide. Our test drive routes have been curated to reveal the full character of every vehicle.</p>
+        <ul class="booking-perks">
+          <li><i class="fa-solid fa-check-circle"></i> Dedicated test drive route</li>
+          <li><i class="fa-solid fa-check-circle"></i> Personal performance advisor</li>
+          <li><i class="fa-solid fa-check-circle"></i> Instant on-road insurance</li>
+          <li><i class="fa-solid fa-check-circle"></i> Post-drive finance consultation</li>
+        </ul>
+      </div>
+      <div class="booking-form-wrap reveal">
+        <form id="bookingForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bName">Full Name</label>
+              <input type="text" id="bName" placeholder="Arjun Mehta" required/>
+              <span class="form-err"></span>
+            </div>
+            <div class="form-group">
+              <label for="bPhone">Phone Number</label>
+              <input type="tel" id="bPhone" placeholder="+91 98765 43210" required/>
+              <span class="form-err"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bEmail">Email Address</label>
+            <input type="email" id="bEmail" placeholder="you@example.com" required/>
+            <span class="form-err"></span>
+          </div>
+          <div class="form-group">
+            <label for="bCar">Preferred Car</label>
+            <select id="bCar" required>
+              <option value="">Select a vehicle</option>
+              <option>BMW X5 xDrive40i</option>
+              <option>BMW M340i xDrive</option>
+              <option>Audi Q7 45 TFSI</option>
+              <option>Mercedes-Benz GLC 300</option>
+              <option>Toyota Fortuner Legender</option>
+              <option>Mahindra XUV700 AX7 L</option>
+            </select>
+            <span class="form-err"></span>
+          </div>
+          <div class="form-group">
+            <label for="bDate">Preferred Date</label>
+            <input type="date" id="bDate" required/>
+            <span class="form-err"></span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Schedule Test Drive <i class="fa-solid fa-calendar-check"></i></button>
+        </form>
+        <div class="form-success" id="bookingSuccess" hidden>
+          <i class="fa-solid fa-circle-check"></i>
+          <h3>You're Confirmed!</h3>
+          <p>We'll call you within 2 hours to finalise the details.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ EMI ═══════════════ -->
+<section id="emi" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Finance Tools</p>
+      <h2 class="section-title">EMI <span class="gold-text">Calculator</span></h2>
+      <p class="section-desc">Get an instant monthly payment estimate. Speak with our finance team for personalised rates.</p>
+    </div>
+    <div class="emi-grid reveal">
+      <div class="emi-inputs">
+        <div class="emi-field">
+          <label for="emiPrice">Vehicle Price (₹)</label>
+          <div class="emi-input-wrap"><span>₹</span><input type="number" id="emiPrice" value="7500000" min="500000" max="50000000" step="100000"/></div>
+          <input type="range" id="emiPriceRange" min="500000" max="50000000" value="7500000" step="100000" class="emi-slider"/>
+          <div class="emi-range-labels"><span>₹5L</span><span>₹5Cr</span></div>
+        </div>
+        <div class="emi-field">
+          <label for="emiDown">Down Payment (₹)</label>
+          <div class="emi-input-wrap"><span>₹</span><input type="number" id="emiDown" value="1500000" min="0" step="50000"/></div>
+          <input type="range" id="emiDownRange" min="0" max="10000000" value="1500000" step="50000" class="emi-slider"/>
+          <div class="emi-range-labels"><span>₹0</span><span>₹1Cr</span></div>
+        </div>
+        <div class="emi-field">
+          <label for="emiRate">Interest Rate (%)</label>
+          <div class="emi-input-wrap"><span>%</span><input type="number" id="emiRate" value="8.5" min="5" max="20" step="0.1"/></div>
+          <input type="range" id="emiRateRange" min="5" max="20" value="8.5" step="0.1" class="emi-slider"/>
+          <div class="emi-range-labels"><span>5%</span><span>20%</span></div>
+        </div>
+        <div class="emi-field">
+          <label for="emiTenure">Loan Period (Years)</label>
+          <div class="emi-input-wrap"><span>Yr</span><input type="number" id="emiTenure" value="5" min="1" max="7" step="1"/></div>
+          <input type="range" id="emiTenureRange" min="1" max="7" value="5" step="1" class="emi-slider"/>
+          <div class="emi-range-labels"><span>1 yr</span><span>7 yrs</span></div>
+        </div>
+      </div>
+      <div class="emi-result">
+        <div class="emi-donut-wrap">
+          <canvas id="emiChart" width="240" height="240"></canvas>
+          <div class="emi-donut-center">
+            <p>Monthly EMI</p>
+            <strong id="emiDisplay">₹0</strong>
+          </div>
+        </div>
+        <div class="emi-breakdown">
+          <div class="emi-row">
+            <span><i class="fa-solid fa-circle" style="color:#C9A84C"></i> Loan Amount</span>
+            <strong id="emiLoan">₹0</strong>
+          </div>
+          <div class="emi-row">
+            <span><i class="fa-solid fa-circle" style="color:#2A2A2A"></i> Total Interest</span>
+            <strong id="emiInterest">₹0</strong>
+          </div>
+          <div class="emi-row emi-row-total">
+            <span>Total Payable</span>
+            <strong id="emiTotal">₹0</strong>
+          </div>
+        </div>
+        <a href="#booking" class="btn btn-primary btn-full mt-1">Apply for Finance</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ REVIEWS ═══════════════ -->
+<section id="reviews" class="section section-dark">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Client Stories</p>
+      <h2 class="section-title">Voices of <span class="gold-text">Excellence</span></h2>
+    </div>
+    <div class="reviews-carousel">
+      <div class="reviews-track" id="reviewsTrack">
+        <article class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <blockquote>"Velocity Motors redefined what buying a car feels like. From the private viewing room to the home delivery — every touch was five-star."</blockquote>
+          <div class="reviewer"><div class="reviewer-avatar">AR</div><div><strong>Arjun Rawal</strong><p>BMW X5 Owner · Mumbai</p></div></div>
+        </article>
+        <article class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <blockquote>"The finance team secured me a rate I couldn't find anywhere else. Picked up my GLC in under four days. Absolutely seamless."</blockquote>
+          <div class="reviewer"><div class="reviewer-avatar">PS</div><div><strong>Priya Sharma</strong><p>Mercedes GLC Owner · Pune</p></div></div>
+        </article>
+        <article class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <blockquote>"I walked in for a test drive and left as an Audi owner. Their advisors know these cars inside-out. Zero pressure, all passion."</blockquote>
+          <div class="reviewer"><div class="reviewer-avatar">VK</div><div><strong>Vaibhav Kulkarni</strong><p>Audi Q7 Owner · Bengaluru</p></div></div>
+        </article>
+        <article class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <blockquote>"The after-sales team is as exceptional as the sales process. My M340i went in for its first service and came back cleaner than when I bought it."</blockquote>
+          <div class="reviewer"><div class="reviewer-avatar">NK</div><div><strong>Nisha Kapoor</strong><p>BMW M340i Owner · Delhi</p></div></div>
+        </article>
+        <article class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <blockquote>"Exchanged my old SUV for the Fortuner. The valuation was fair, the paperwork took two hours, and the new car was ready the next morning."</blockquote>
+          <div class="reviewer"><div class="reviewer-avatar">SM</div><div><strong>Suresh Menon</strong><p>Toyota Fortuner Owner · Hyderabad</p></div></div>
+        </article>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button id="revPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button id="revNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ OFFERS ═══════════════ -->
+<section id="offers" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Limited Time</p>
+      <h2 class="section-title">Exclusive <span class="gold-text">Offers</span></h2>
+    </div>
+    <div class="offers-grid">
+      <div class="offer-card offer-card-main reveal">
+        <div class="offer-tag">Monsoon Special</div>
+        <h3>Up to ₹3.5 Lakh<br/>off on Select SUVs</h3>
+        <p>Grab the wheel before the season ends. Available on BMW X5, Audi Q7, and Mercedes GLC.</p>
+        <a href="#booking" class="btn btn-primary">Claim Offer</a>
+        <div class="offer-timer" id="offerTimer"></div>
+      </div>
+      <div class="offer-card reveal">
+        <div class="offer-icon"><i class="fa-solid fa-rotate"></i></div>
+        <h3>Exchange Bonus</h3>
+        <p>Get ₹50,000 above market value when you exchange your existing vehicle for any car in our showroom.</p>
+        <a href="#contact" class="btn btn-outline">Know More</a>
+      </div>
+      <div class="offer-card reveal">
+        <div class="offer-icon"><i class="fa-solid fa-percent"></i></div>
+        <h3>Zero-Cost EMI</h3>
+        <p>Drive home with 0% processing fees and your first EMI due 90 days after purchase. T&amp;C apply.</p>
+        <a href="#emi" class="btn btn-outline">Calculate EMI</a>
+      </div>
+      <div class="offer-card reveal">
+        <div class="offer-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>5-Year Warranty</h3>
+        <p>Every Velocity-certified pre-owned vehicle now comes with a complimentary 5-year powertrain warranty.</p>
+        <a href="#contact" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GALLERY ═══════════════ -->
+<section id="gallery" class="section section-dark">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Inside Velocity</p>
+      <h2 class="section-title">The <span class="gold-text">Showroom</span></h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item gallery-large" data-src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1600&q=90" data-caption="Velocity Motors — Main Showroom Floor">
+        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=900&q=80" alt="Luxury showroom floor" loading="lazy"/>
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&q=90" data-caption="BMW X5 — The Ultimate SUV">
+        <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80" alt="BMW X5" loading="lazy"/>
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1617531653332-bd46c16f4d68?w=1200&q=90" data-caption="BMW M340i — Pure Performance">
+        <img src="https://images.unsplash.com/photo-1617531653332-bd46c16f4d68?w=600&q=80" alt="BMW M340i" loading="lazy"/>
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1200&q=90" data-caption="Handcrafted Luxury Interiors">
+        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80" alt="Luxury car interior" loading="lazy"/>
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item gallery-tall" data-src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=90" data-caption="Velocity Motors — Exterior Night View">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80" alt="Showroom exterior" loading="lazy"/>
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+      <div class="gallery-item" data-src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&q=90" data-caption="Mercedes-Benz GLC — Refined Elegance">
+        <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80" alt="Mercedes GLC" loading="lazy"/>
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+  <figure class="lightbox-content">
+    <img id="lightboxImg" src="" alt=""/>
+    <figcaption id="lightboxCaption"></figcaption>
+  </figure>
+</div>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Get in Touch</p>
+      <h2 class="section-title">Connect with <span class="gold-text">Velocity Motors</span></h2>
+    </div>
+    <div class="contact-grid">
+
+      <!-- Contact Info + Social Links -->
+      <div class="contact-info reveal">
+        <div class="contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <div>
+            <strong>Showroom Address</strong>
+            <p>Velocity Motors, Plot 17, BKC Road,<br/>Bandra Kurla Complex, Mumbai – 400051</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-clock"></i>
+          <div>
+            <strong>Showroom Hours</strong>
+            <p>Mon – Sat: 9:00 AM – 7:00 PM<br/>Sunday: 10:00 AM – 5:00 PM</p>
+          </div>
+        </div>
+
+        <!-- Social / Contact Links -->
+        <div class="contact-social-links">
+
+          <a href="mailto:gmkingeditz@gmail.com" class="contact-social-link csl-email">
+            <div class="csl-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="csl-text">
+              <strong>Email Us</strong>
+              <span>gmkingeditz@gmail.com</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:.8rem;opacity:.5;"></i>
+          </a>
+
+          <a href="https://wa.me/917904307394" target="_blank" rel="noopener" class="contact-social-link csl-whatsapp">
+            <div class="csl-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="csl-text">
+              <strong>WhatsApp</strong>
+              <span>+91 7904307394</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:.8rem;opacity:.5;"></i>
+          </a>
+
+          <a href="https://www.instagram.com/gm_king_editz" target="_blank" rel="noopener" class="contact-social-link csl-instagram">
+            <div class="csl-icon"><i class="fa-brands fa-instagram"></i></div>
+            <div class="csl-text">
+              <strong>Instagram</strong>
+              <span>@gm_king_editz</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:.8rem;opacity:.5;"></i>
+          </a>
+
+          <a href="https://youtube.com/@gurumoorthik-gm" target="_blank" rel="noopener" class="contact-social-link csl-youtube">
+            <div class="csl-icon"><i class="fa-brands fa-youtube"></i></div>
+            <div class="csl-text">
+              <strong>YouTube</strong>
+              <span>@gurumoorthik-gm</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:.8rem;opacity:.5;"></i>
+          </a>
+
+          <a href="https://www.facebook.com/share/1APLbHoU3Q/" target="_blank" rel="noopener" class="contact-social-link csl-facebook">
+            <div class="csl-icon"><i class="fa-brands fa-facebook-f"></i></div>
+            <div class="csl-text">
+              <strong>Facebook</strong>
+              <span>Velocity Motors on Facebook</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:.8rem;opacity:.5;"></i>
+          </a>
+
+          <a href="https://gurumoorthigm7-cmd.github.io/GM_KING_EDITZ/" target="_blank" rel="noopener" class="contact-social-link csl-portfolio">
+            <div class="csl-icon"><i class="fa-solid fa-globe"></i></div>
+            <div class="csl-text">
+              <strong>Portfolio Website</strong>
+              <span>GM King Editz Portfolio</span>
+            </div>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left:auto;font-size:.8rem;opacity:.5;"></i>
+          </a>
+
+        </div>
+
+        <!-- Map -->
+        <div class="map-placeholder">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.0!2d72.865!3d19.0596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9c676018b43%3A0x75f29a4205098f99!2sBandra+Kurla+Complex!5e0!3m2!1sen!2sin!4v1700000000000" width="100%" height="180" style="border:0;border-radius:12px;" allowfullscreen loading="lazy" title="Velocity Motors Location"></iframe>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrap reveal">
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cName">Full Name</label>
+              <input type="text" id="cName" placeholder="Your name" required/>
+            </div>
+            <div class="form-group">
+              <label for="cPhone">Phone</label>
+              <input type="tel" id="cPhone" placeholder="+91 xxxxx xxxxx" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cEmail">Email</label>
+            <input type="email" id="cEmail" placeholder="you@example.com" required/>
+          </div>
+          <div class="form-group">
+            <label for="cMsg">Message</label>
+            <textarea id="cMsg" rows="5" placeholder="Tell us how we can help…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+        <div class="form-success" id="contactSuccess" hidden>
+          <i class="fa-solid fa-circle-check"></i>
+          <h3>Message Received</h3>
+          <p>Our team will respond within one business hour.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo" aria-label="Velocity Motors">
+          <span class="logo-mark">V</span>
+          <span class="logo-text">ELOCITY <em>MOTORS</em></span>
+        </a>
+        <p>Mumbai's most exclusive luxury automobile showroom. Where passion meets precision.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/gm_king_editz" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.facebook.com/share/1APLbHoU3Q/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://youtube.com/@gurumoorthik-gm" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://wa.me/917904307394" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://gurumoorthigm7-cmd.github.io/GM_KING_EDITZ/" target="_blank" rel="noopener" aria-label="Portfolio"><i class="fa-solid fa-globe"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#cars">Our Inventory</a></li>
+          <li><a href="#booking">Book Test Drive</a></li>
+          <li><a href="#emi">EMI Calculator</a></li>
+          <li><a href="#compare">Compare Cars</a></li>
+          <li><a href="#offers">Current Offers</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Brands</h4>
+        <ul>
+          <li><a href="#cars">BMW</a></li>
+          <li><a href="#cars">Audi</a></li>
+          <li><a href="#cars">Mercedes-Benz</a></li>
+          <li><a href="#cars">Toyota</a></li>
+          <li><a href="#cars">Mahindra</a></li>
+          <li><a href="#contact">More Brands</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-newsletter">
+        <h4>Stay Informed</h4>
+        <p>New arrivals, exclusive offers, and automotive insights — delivered to your inbox.</p>
+        <form class="newsletter-form" id="newsletterForm" novalidate>
+          <input type="email" placeholder="your@email.com" required aria-label="Newsletter email"/>
+          <button type="submit" aria-label="Subscribe"><i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+        <p class="newsletter-note">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="footerYear"></span> Velocity Motors Pvt. Ltd. All rights reserved. Built by <a href="https://gurumoorthigm7-cmd.github.io/GM_KING_EDITZ/" target="_blank" rel="noopener" style="color:var(--gold);">GM King Editz</a></p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════ CAR MODAL ═══════════════ -->
+<div class="modal-overlay" id="carModal" role="dialog" aria-modal="true" hidden>
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ BACK TO TOP ═══════════════ -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top" hidden>
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════ -->
+<script>
+/* ── LOADER ── */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('hidden');
+    initReveal();
+    initHeroAnimations();
+    initCounters();
+  },1800);
+});
+
+/* ── NAVBAR ── */
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  navbar.classList.toggle('scrolled',window.scrollY>60);
+  document.getElementById('backToTop').hidden=window.scrollY<400;
+},{ passive:true });
+
+/* ── HAMBURGER ── */
+const hamburger=document.getElementById('hamburger');
+const navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>{
+  const open=hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open',open);
+  hamburger.setAttribute('aria-expanded',open);
+  document.body.classList.toggle('no-scroll',open);
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  hamburger.classList.remove('open');
+  navLinks.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+}));
+
+/* ── THEME TOGGLE ── */
+const themeBtn=document.getElementById('themeToggle');
+const themeIcon=document.getElementById('themeIcon');
+let dark=true;
+themeBtn.addEventListener('click',()=>{
+  dark=!dark;
+  document.body.setAttribute('data-theme',dark?'dark':'light');
+  themeIcon.className=dark?'fa-solid fa-moon':'fa-solid fa-sun';
+});
+
+/* ── SEARCH ── */
+const searchToggle=document.getElementById('searchToggle');
+const searchBar=document.getElementById('searchBar');
+const searchInput=document.getElementById('searchInput');
+const searchClose=document.getElementById('searchClose');
+searchToggle.addEventListener('click',()=>{searchBar.classList.toggle('open');if(searchBar.classList.contains('open'))searchInput.focus();});
+searchClose.addEventListener('click',()=>{searchBar.classList.remove('open');searchInput.value='';filterCars('');});
+searchInput.addEventListener('input',e=>filterCars(e.target.value));
+
+/* ── CAR FILTER TABS ── */
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false');});
+    btn.classList.add('active');btn.setAttribute('aria-selected','true');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.car-card').forEach(c=>{
+      c.classList.toggle('hidden',f!=='all'&&!c.dataset.category.includes(f));
+    });
+  });
+});
+
+function filterCars(query){
+  const q=query.toLowerCase().trim();
+  document.querySelectorAll('.car-card').forEach(c=>{
+    c.classList.toggle('hidden',q!==''&&!c.dataset.name.toLowerCase().includes(q));
+  });
+}
+
+/* ── HERO FADE-UP ── */
+function initHeroAnimations(){
+  document.querySelectorAll('.fade-up').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('visible'),300+i*150);
+  });
+}
+
+/* ── SCROLL REVEAL ── */
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+/* ── ANIMATED COUNTERS ── */
+function initCounters(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el=e.target,target=+el.dataset.target,duration=1800;
+        let start=null;
+        const step=ts=>{
+          if(!start)start=ts;
+          const p=Math.min((ts-start)/duration,1);
+          el.textContent=Math.floor(p*p*(3-2*p)*target);
+          if(p<1)requestAnimationFrame(step);
+          else el.textContent=target;
+        };
+        requestAnimationFrame(step);
+        obs.unobserve(el);
+      }
+    });
+  },{threshold:0.5});
+  document.querySelectorAll('.counter').forEach(el=>obs.observe(el));
+}
+
+/* ── WISHLIST TOGGLE ── */
+document.querySelectorAll('.car-wishlist').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    btn.classList.toggle('active');
+    const icon=btn.querySelector('i');
+    icon.className=btn.classList.contains('active')?'fa-solid fa-heart':'fa-regular fa-heart';
+  });
+});
+
+/* ── CAR COMPARISON DATA ── */
+const carDB={
+  'bmw-x5':{name:'BMW X5 xDrive40i',brand:'BMW',price:'₹92,00,000',bhp:'340 BHP',torque:'450 Nm',fuel:'Petrol',mileage:'11.5 km/l',engine:'3.0L Twin-Turbo I6',transmission:'8-Speed Auto',drive:'AWD (xDrive)',seats:5,img:'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',desc:'The BMW X5 delivers a perfect blend of luxury and performance. Its twin-turbocharged inline-six engine produces effortless power, while the xDrive AWD system ensures supreme all-weather confidence.'},
+  'bmw-m340i':{name:'BMW M340i xDrive',brand:'BMW',price:'₹68,90,000',bhp:'374 BHP',torque:'500 Nm',fuel:'Petrol',mileage:'10.2 km/l',engine:'3.0L B58 M-Tuned I6',transmission:'8-Speed M Sport Auto',drive:'AWD (xDrive)',seats:5,img:'https://images.unsplash.com/photo-1617531653332-bd46c16f4d68?w=800&q=80',desc:'The M340i is the ultimate 3 Series — an M Performance model that blurs the line between saloon and sports car. The B58 engine is a masterpiece of BMW\'s M division.'},
+  'audi-q7':{name:'Audi Q7 45 TFSI',brand:'Audi',price:'₹88,74,000',bhp:'249 BHP',torque:'370 Nm',fuel:'Petrol',mileage:'12.1 km/l',engine:'2.0L TFSI Turbo',transmission:'7-Speed S-Tronic',drive:'AWD (Quattro)',seats:7,img:'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80',desc:'The Audi Q7 commands presence without compromise. Seven seats, a refined TFSI engine and the legendary Quattro AWD system make it the practical choice with no sacrifice in luxury.'},
+  'mercedes-glc':{name:'Mercedes-Benz GLC 300 4MATIC',brand:'Mercedes-Benz',price:'₹74,50,000',bhp:'258 BHP',torque:'400 Nm',fuel:'Petrol',mileage:'13.2 km/l',engine:'2.0L M254 Turbo',transmission:'9-Speed 9G-TRONIC',drive:'AWD (4MATIC)',seats:5,img:'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80',desc:'The GLC 300 epitomises the Mercedes-Benz philosophy of intelligent luxury. Its MBUX infotainment, sculpted interior and 4MATIC traction set a benchmark in the premium SUV segment.'},
+  'fortuner':{name:'Toyota Fortuner Legender',brand:'Toyota',price:'₹43,43,000',bhp:'201 BHP',torque:'500 Nm',fuel:'Diesel',mileage:'14.2 km/l',engine:'2.8L 1GD-FTV Turbo Diesel',transmission:'6-Speed Auto',drive:'4WD',seats:7,img:'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=800&q=80',desc:'The Fortuner Legender combines Toyota\'s legendary reliability with a bold new stance. Its powerful diesel engine and ladder-frame chassis make it equally at home on motorways and off-road trails.'},
+  'xuv700':{name:'Mahindra XUV700 AX7 L',brand:'Mahindra',price:'₹25,99,000',bhp:'185 BHP',torque:'450 Nm',fuel:'Diesel',mileage:'16.1 km/l',engine:'2.2L mStallion Diesel',transmission:'6-Speed Auto',drive:'AWD',seats:7,img:'https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&q=80',desc:'The XUV700 AX7 L redefines value in the premium SUV space. Packed with ADAS safety tech, a panoramic sunroof and a 10.25" dual-screen setup, it punches far above its price point.'}
+};
+
+/* ── COMPARE TOOL ── */
+let compareQueue=[];
+function addToCompare(name,price,bhp,fuel,mileage,engine){
+  const id=Object.keys(carDB).find(k=>carDB[k].name.toLowerCase().includes(name.toLowerCase().split(' ')[1].toLowerCase()));
+  if(!id)return;
+  if(compareQueue.length===0){
+    document.getElementById('car1Select').value=id;
+    compareQueue=[id];
+    alert('✓ '+name+' added as Car 1. Now pick a second car to compare!');
+  } else if(compareQueue.length===1&&compareQueue[0]!==id){
+    document.getElementById('car2Select').value=id;
+    compareQueue=[compareQueue[0],id];
+    document.getElementById('compare').scrollIntoView({behavior:'smooth'});
+    setTimeout(()=>document.getElementById('compareBtn').click(),600);
+  }
+}
+
+document.getElementById('compareBtn').addEventListener('click',()=>{
+  const id1=document.getElementById('car1Select').value;
+  const id2=document.getElementById('car2Select').value;
+  const res=document.getElementById('compareResult');
+  if(!id1||!id2){res.innerHTML='<p style="color:var(--gray);text-align:center;padding:20px;">Please select two cars to compare.</p>';return;}
+  if(id1===id2){res.innerHTML='<p style="color:var(--gray);text-align:center;padding:20px;">Please select two different cars.</p>';return;}
+  const a=carDB[id1],b=carDB[id2];
+  const bhpA=parseInt(a.bhp),bhpB=parseInt(b.bhp);
+  const mA=parseFloat(a.mileage),mB=parseFloat(b.mileage);
+  res.innerHTML=`
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Specification</th>
+        <th class="compare-car-name">${a.brand}<br/>${a.name.replace(a.brand,'').trim()}</th>
+        <th class="compare-car-name">${b.brand}<br/>${b.name.replace(b.brand,'').trim()}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Price</td><td>${a.price}</td><td>${b.price}</td></tr>
+      <tr><td>Power</td>
+        <td class="${bhpA>bhpB?'compare-better':''}">${a.bhp}</td>
+        <td class="${bhpB>bhpA?'compare-better':''}">${b.bhp}</td>
+      </tr>
+      <tr><td>Torque</td><td>${a.torque}</td><td>${b.torque}</td></tr>
+      <tr><td>Engine</td><td>${a.engine}</td><td>${b.engine}</td></tr>
+      <tr><td>Fuel Type</td><td>${a.fuel}</td><td>${b.fuel}</td></tr>
+      <tr><td>Mileage</td>
+        <td class="${mA>mB?'compare-better':''}">${a.mileage}</td>
+        <td class="${mB>mA?'compare-better':''}">${b.mileage}</td>
+      </tr>
+      <tr><td>Transmission</td><td>${a.transmission}</td><td>${b.transmission}</td></tr>
+      <tr><td>Drive System</td><td>${a.drive}</td><td>${b.drive}</td></tr>
+      <tr><td>Seating</td><td>${a.seats} Seats</td><td>${b.seats} Seats</td></tr>
+    </tbody>
+  </table>
+  <p style="text-align:center;margin-top:12px;font-size:.78rem;color:var(--gray);">★ Highlighted cells indicate the better value in that category.</p>`;
+  compareQueue=[];
+});
+
+/* ── BOOKING FORM ── */
+document.getElementById('bookingForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  let valid=true;
+  this.querySelectorAll('[required]').forEach(field=>{
+    const err=field.nextElementSibling;
+    if(!field.value.trim()){
+      if(err)err.textContent='This field is required.';
+      valid=false;
+    } else {
+      if(err)err.textContent='';
+    }
+  });
+  if(valid){
+    this.hidden=true;
+    document.getElementById('bookingSuccess').hidden=false;
+  }
+});
+
+/* ── CONTACT FORM ── */
+document.getElementById('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  this.hidden=true;
+  document.getElementById('contactSuccess').hidden=false;
+});
+
+/* ── NEWSLETTER ── */
+document.getElementById('newsletterForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  this.innerHTML='<p style="color:var(--gold);font-size:.9rem;padding:8px 0;">✓ Subscribed successfully!</p>';
+});
+
+/* ── EMI CALCULATOR ── */
+const emiFields=[
+  ['emiPrice','emiPriceRange'],
+  ['emiDown','emiDownRange'],
+  ['emiRate','emiRateRange'],
+  ['emiTenure','emiTenureRange']
+];
+emiFields.forEach(([inputId,rangeId])=>{
+  const input=document.getElementById(inputId);
+  const range=document.getElementById(rangeId);
+  input.addEventListener('input',()=>{range.value=input.value;calcEMI();});
+  range.addEventListener('input',()=>{input.value=range.value;calcEMI();});
+});
+
+function formatINR(n){
+  if(n>=10000000)return '₹'+(n/10000000).toFixed(2)+' Cr';
+  if(n>=100000)return '₹'+(n/100000).toFixed(1)+' L';
+  return '₹'+Math.round(n).toLocaleString('en-IN');
+}
+
+function calcEMI(){
+  const price=+document.getElementById('emiPrice').value||0;
+  const down=+document.getElementById('emiDown').value||0;
+  const rate=+document.getElementById('emiRate').value||0;
+  const years=+document.getElementById('emiTenure').value||1;
+  const principal=Math.max(price-down,0);
+  const months=years*12;
+  const r=rate/(12*100);
+  let emi=0,interest=0;
+  if(r>0){
+    emi=principal*(r*Math.pow(1+r,months))/(Math.pow(1+r,months)-1);
+    interest=emi*months-principal;
+  } else {
+    emi=principal/months;
+  }
+  const total=principal+interest;
+  document.getElementById('emiDisplay').textContent=formatINR(emi)+'/mo';
+  document.getElementById('emiLoan').textContent=formatINR(principal);
+  document.getElementById('emiInterest').textContent=formatINR(interest);
+  document.getElementById('emiTotal').textContent=formatINR(total);
+  drawDonut(principal,interest);
+}
+
+function drawDonut(loan,interest){
+  const canvas=document.getElementById('emiChart');
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width,h=canvas.height,r=w/2,hole=0.62;
+  ctx.clearRect(0,0,w,h);
+  const total=loan+interest||1;
+  const slices=[
+    {value:loan,color:'#C9A84C'},
+    {value:interest,color:'#2E2E2E'}
+  ];
+  let start=-Math.PI/2;
+  slices.forEach(s=>{
+    const angle=(s.value/total)*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(r,r);
+    ctx.arc(r,r,r*.9,start,start+angle);
+    ctx.closePath();
+    ctx.fillStyle=s.color;
+    ctx.fill();
+    start+=angle;
+  });
+  // Hole
+  ctx.beginPath();
+  ctx.arc(r,r,r*hole,0,Math.PI*2);
+  const isDark=document.body.getAttribute('data-theme')!=='light';
+  ctx.fillStyle=isDark?'#1A1A1A':'#E8E8E3';
+  ctx.fill();
+}
+calcEMI();
+
+/* ── REVIEWS CAROUSEL ── */
+const track=document.getElementById('reviewsTrack');
+const cards=[...track.querySelectorAll('.review-card')];
+const dotsWrap=document.getElementById('carouselDots');
+let curSlide=0;
+const visibleCount=()=>window.innerWidth<600?1:window.innerWidth<900?2:3;
+
+cards.forEach((_,i)=>{
+  const dot=document.createElement('button');
+  dot.className='carousel-dot'+(i===0?' active':'');
+  dot.setAttribute('aria-label','Review '+(i+1));
+  dot.addEventListener('click',()=>goTo(i));
+  dotsWrap.appendChild(dot);
+});
+
+function goTo(idx){
+  curSlide=Math.max(0,Math.min(idx,cards.length-visibleCount()));
+  const cardW=cards[0].offsetWidth+24;
+  track.style.transform=`translateX(-${curSlide*cardW}px)`;
+  document.querySelectorAll('.carousel-dot').forEach((d,i)=>d.classList.toggle('active',i===curSlide));
+}
+document.getElementById('revPrev').addEventListener('click',()=>goTo(curSlide-1));
+document.getElementById('revNext').addEventListener('click',()=>goTo(curSlide+1));
+window.addEventListener('resize',()=>goTo(curSlide));
+
+/* ── OFFER COUNTDOWN TIMER ── */
+function updateTimer(){
+  const end=new Date();end.setDate(end.getDate()+15);end.setHours(0,0,0,0);
+  const diff=end-Date.now();
+  if(diff<=0){document.getElementById('offerTimer').textContent='Offer expired';return;}
+  const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+  document.getElementById('offerTimer').textContent=`Ends in: ${d}d ${h}h ${m}m ${s}s`;
+}
+updateTimer();setInterval(updateTimer,1000);
+
+/* ── GALLERY LIGHTBOX ── */
+const galleryItems=[...document.querySelectorAll('.gallery-item')];
+let lightboxIdx=0;
+const lightbox=document.getElementById('lightbox');
+
+function openLightbox(idx){
+  lightboxIdx=idx;
+  document.getElementById('lightboxImg').src=galleryItems[idx].dataset.src;
+  document.getElementById('lightboxCaption').textContent=galleryItems[idx].dataset.caption||'';
+  lightbox.hidden=false;
+  document.body.classList.add('no-scroll');
+}
+function closeLightbox(){lightbox.hidden=true;document.body.classList.remove('no-scroll');}
+function navLightbox(dir){openLightbox((lightboxIdx+dir+galleryItems.length)%galleryItems.length);}
+
+galleryItems.forEach((item,i)=>item.addEventListener('click',()=>openLightbox(i)));
+document.getElementById('lightboxClose').addEventListener('click',closeLightbox);
+document.getElementById('lightboxPrev').addEventListener('click',()=>navLightbox(-1));
+document.getElementById('lightboxNext').addEventListener('click',()=>navLightbox(1));
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+document.addEventListener('keydown',e=>{
+  if(lightbox.hidden)return;
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='ArrowLeft')navLightbox(-1);
+  if(e.key==='ArrowRight')navLightbox(1);
+});
+
+/* ── CAR MODAL ── */
+function openModal(id){
+  const car=carDB[id];if(!car)return;
+  document.getElementById('modalContent').innerHTML=`
+    <img class="modal-img" src="${car.img}" alt="${car.name}"/>
+    <div class="modal-brand">${car.brand}</div>
+    <h2 class="modal-name" id="modalTitle">${car.name}</h2>
+    <div class="modal-price">${car.price}</div>
+    <p class="modal-desc">${car.desc}</p>
+    <div class="modal-specs-grid">
+      <div class="modal-spec"><p>Power</p><strong>${car.bhp}</strong></div>
+      <div class="modal-spec"><p>Torque</p><strong>${car.torque}</strong></div>
+      <div class="modal-spec"><p>Engine</p><strong>${car.engine}</strong></div>
+      <div class="modal-spec"><p>Fuel Type</p><strong>${car.fuel}</strong></div>
+      <div class="modal-spec"><p>Mileage</p><strong>${car.mileage}</strong></div>
+      <div class="modal-spec"><p>Transmission</p><strong>${car.transmission}</strong></div>
+      <div class="modal-spec"><p>Drive</p><strong>${car.drive}</strong></div>
+      <div class="modal-spec"><p>Seating</p><strong>${car.seats} Persons</strong></div>
+    </div>
+    <div class="modal-actions">
+      <a href="#booking" class="btn btn-primary" onclick="document.getElementById('carModal').hidden=true;document.getElementById('bCar').value='${car.name}'">Book Test Drive</a>
+      <button class="btn btn-outline" onclick="document.getElementById('carModal').hidden=true;document.body.classList.remove('no-scroll')">Close</button>
+    </div>`;
+  const modal=document.getElementById('carModal');
+  modal.hidden=false;
+  document.body.classList.add('no-scroll');
+}
+document.getElementById('modalClose').addEventListener('click',()=>{
+  document.getElementById('carModal').hidden=true;
+  document.body.classList.remove('no-scroll');
+});
+document.getElementById('carModal').addEventListener('click',function(e){
+  if(e.target===this){this.hidden=true;document.body.classList.remove('no-scroll');}
+});
+
+/* ── BACK TO TOP ── */
+document.getElementById('backToTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ── FOOTER YEAR ── */
+document.getElementById('footerYear').textContent=new Date().getFullYear();
+
+/* ── SET MIN DATE FOR BOOKING ── */
+const dateInput=document.getElementById('bDate');
+if(dateInput){const t=new Date();t.setDate(t.getDate()+1);dateInput.min=t.toISOString().split('T')[0];}
+</script>
+</body>
+</html>
